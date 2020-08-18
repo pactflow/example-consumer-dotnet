@@ -17,11 +17,14 @@ all: test
 ## CI tasks
 ## ====================
 
+clean: pacts/*.json
+	rm pacts/*.json
+
 restore:
 	dotnet restore src
 	dotnet restore tests
 
-ci: restore test publish_pacts can_i_deploy $(DEPLOY_TARGET)
+ci: clean restore test publish_pacts can_i_deploy $(DEPLOY_TARGET)
 
 # Run the ci target from a developer machine with the environment variables
 # set as if it was on Travis CI.

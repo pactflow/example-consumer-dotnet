@@ -29,8 +29,8 @@ namespace tests
 
             PactBuilder = new PactBuilder(pactConfig);
 
-            PactBuilder.ServiceConsumer("Consumer")
-                       .HasPactWith("Provider");
+            PactBuilder.ServiceConsumer("pactflow-example-consumer-dotnet")
+                       .HasPactWith("pactflow-example-provider-dotnet");
 
             MockProviderService = PactBuilder.MockService(MockServerPort);
         }

@@ -1,0 +1,11 @@
+language: csharp
+services:
+- docker
+env:
+  global:
+  - PACT_BROKER_BASE_URL=https://dius.pactflow.io
+  # PACT_BROKER_TOKEN is managed via the UI
+before_script:
+  - docker pull pactfoundation/pact-cli:latest
+script:
+- make ci
