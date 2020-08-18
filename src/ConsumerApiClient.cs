@@ -1,25 +1,31 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Consumer
 {
-    public static class ConsumerApiClient
+    public struct Product
     {
-        static public async Task<HttpResponseMessage> ValidateDateTimeUsingProviderApi(string dateTimeToValidate, string baseUri)
+        public string id;
+        public string type;
+        public string name;
+    }
+
+    public class ProductClient
+    {
+        #nullable enable
+        public async Task<System.Collections.Generic.List<Product>> GetProducts(string baseUrl, HttpClient? httpClient = null)
         {
-            using (var client = new HttpClient { BaseAddress = new Uri(baseUri)})
-            {
-                try
-                {
-                    var response = await client.GetAsync($"/api/provider?validDateTime={dateTimeToValidate}");
-                    return response;
-                }
-                catch (System.Exception ex)
-                {
-                    throw new Exception("There was a problem connecting to Provider API.", ex);
-                }
-            }
+            using var client = httpClient == null ? new HttpClient() : httpClient;
+
+            var response = await client.GetAsync(baseUrl + "/products");
+            response.EnsureSuccessStatusCode();
+
+            var resp = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<List<Product>>(resp);
         }
     }
 }

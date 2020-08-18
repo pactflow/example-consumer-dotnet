@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -8,30 +9,12 @@ namespace Consumer
     {
         static void Main(string[] args)
         {
-            string dateTimeToValidate = "05/01/2018";
             string baseUri = "http://localhost:9000";
 
-            if(args.Length <= 1)
-            {
-                Console.WriteLine("-------------------");
-                WriteoutArgsUsed(dateTimeToValidate, baseUri);
-                WriteoutUsageInstructions();
-                Console.WriteLine("-------------------");
-            }
-            else
-            {
-                dateTimeToValidate = args[0];
-                baseUri = args[1];
-                Console.WriteLine("-------------------");
-                WriteoutArgsUsed(dateTimeToValidate, baseUri);
-                Console.WriteLine("-------------------");
-            }
-
-            Console.WriteLine("Validating date...");
-            var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi(dateTimeToValidate, baseUri).GetAwaiter().GetResult();
-            var resultContentText = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            Console.WriteLine(resultContentText);
-            Console.WriteLine("...Date validation complete. Goodbye.");
+            Console.WriteLine("Fetching products");
+            var consumer = new ProductClient();
+            List<Product> result = consumer.GetProducts(baseUri).GetAwaiter().GetResult();
+            Console.WriteLine(result);
         }
 
         static private void WriteoutArgsUsed(string datetimeArg, string baseUriArg)
@@ -42,7 +25,7 @@ namespace Consumer
         static private void WriteoutUsageInstructions()
         {
             Console.WriteLine("To use with your own parameters:");
-            Console.WriteLine("Usage: dotnet run [DateTime To Validate] [Provider Api Uri]");
+            Console.WriteLine("Usage: dotnet run ");
             Console.WriteLine("Usage Example: dotnet run 01/01/2018 http://localhost:9000");
         }
     }
