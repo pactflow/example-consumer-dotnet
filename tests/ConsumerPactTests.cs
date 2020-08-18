@@ -25,8 +25,8 @@ namespace tests
         public async void RetrieveProducts()
         {
             // Arrange
-            _mockProviderService.Given("There is data")
-                                .UponReceiving("A valid GET request for Date Validation")
+            _mockProviderService.Given("There are products")
+                                .UponReceiving("A request to get products")
                                 .With(new ProviderServiceRequest
                                 {
                                     Method = HttpVerb.Get,

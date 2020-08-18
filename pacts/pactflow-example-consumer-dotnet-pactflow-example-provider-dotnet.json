@@ -7,8 +7,8 @@
   },
   "interactions": [
     {
-      "description": "A valid GET request for Date Validation",
-      "providerState": "There is data",
+      "description": "A request to get products",
+      "providerState": "There are products",
       "request": {
         "method": "get",
         "path": "/products"
