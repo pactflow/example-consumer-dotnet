@@ -8,7 +8,7 @@
   "interactions": [
     {
       "description": "A request to get products",
-      "providerState": "There are products",
+      "providerState": "products exist",
       "request": {
         "method": "get",
         "path": "/products"
