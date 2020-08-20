@@ -25,7 +25,7 @@ namespace tests
         public async void RetrieveProducts()
         {
             // Arrange
-            _mockProviderService.Given("There are products")
+            _mockProviderService.Given("products exist")
                                 .UponReceiving("A request to get products")
                                 .With(new ProviderServiceRequest
                                 {
