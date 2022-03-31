@@ -5,7 +5,7 @@ GITHUB_WEBHOOK_UUID := "e0d3dd92-d69a-40f7-a58b-7d5f0c739028"
 PACT_CLI="docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL -e PACT_BROKER_TOKEN pactfoundation/pact-cli:latest"
 
 # Only deploy from master
-ifeq ($(TRAVIS_BRANCH),master)
+ifeq ($(GIT_BRANCH),master)
 	DEPLOY_TARGET=deploy
 else
 	DEPLOY_TARGET=no_deploy
@@ -31,12 +31,12 @@ ci: clean restore test publish_pacts can_i_deploy $(DEPLOY_TARGET)
 # Use this for quick feedback when playing around with your workflows.
 fake_ci:
 	CI=true \
-	TRAVIS_COMMIT=`git rev-parse --short HEAD`+`date +%s` \
-	TRAVIS_BRANCH=`git rev-parse --abbrev-ref HEAD` \
+	GIT_COMMIT=`git rev-parse --short HEAD`+`date +%s` \
+	GIT_BRANCH=`git rev-parse --abbrev-ref HEAD` \
 	make ci
 
 publish_pacts:
-	@"${PACT_CLI}" publish ${PWD}/pacts --consumer-app-version ${TRAVIS_COMMIT} --tag ${TRAVIS_BRANCH}
+	@"${PACT_CLI}" publish ${PWD}/pacts --consumer-app-version ${GIT_COMMIT} --tag ${GIT_BRANCH}
 
 ## =====================
 ## Build/test tasks
@@ -58,7 +58,7 @@ no_deploy:
 can_i_deploy:
 	@"${PACT_CLI}" broker can-i-deploy \
 	  --pacticipant ${PACTICIPANT} \
-	  --version ${TRAVIS_COMMIT} \
+	  --version ${GIT_COMMIT} \
 	  --to prod \
 	  --retry-while-unknown 0 \
 	  --retry-interval 10
@@ -67,7 +67,7 @@ deploy_app:
 	@echo "Deploying to prod"
 
 tag_as_prod:
-	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${TRAVIS_COMMIT} --tag prod
+	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --tag prod
 
 ## =====================
 ## Pactflow set up tasks
@@ -105,11 +105,11 @@ test_github_webhook:
 ## Travis CI set up tasks
 ## ======================
 
-travis_login:
+GIT_login:
 	@docker run --rm -v ${HOME}/.travis:/root/.travis -it lirantal/travis-cli login --pro
 
 # Requires PACT_BROKER_TOKEN to be set
-travis_encrypt_pact_broker_token:
+GIT_encrypt_pact_broker_token:
 	@docker run --rm -v ${HOME}/.travis:/root/.travis -v ${PWD}:${PWD} --workdir ${PWD} lirantal/travis-cli encrypt --pro PACT_BROKER_TOKEN="${PACT_BROKER_TOKEN}"
 
 ## ======================
