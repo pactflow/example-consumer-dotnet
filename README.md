@@ -8,7 +8,7 @@
 
 This is an example of a dotnet core consumer using Pact to create a consumer driven contract, and sharing it via [Pactflow](https://pactflow.io).
 
-It is using a private tenant on Pactflow. The latest version of the Example Consumer/Example Provider pact is published [here](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest).
+It is using a private tenant on Pactflow. The latest version of the Example Consumer/Example Provider pact is published [here](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest).
 
 The project uses a Makefile to simulate a very simple build pipeline with two stages - test and deploy.
 
