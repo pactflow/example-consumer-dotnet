@@ -2,9 +2,9 @@
 
 [![Build](https://github.com/pactflow/example-consumer-dotnet/actions/workflows/build.yml/badge.svg)](https://github.com/pactflow/example-consumer-dotnet/actions/workflows/build.yml)
 
-[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest) (latest pact)
+[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest) (latest pact)
 
-[![Pact Status](https://testdemo.pactflow.io/matrix/provider/pactflow-example-provider-dotnet/latest/prod/consumer/pactflow-pactflow-example-consumer-dotnet/latest/prod/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest/prod) (prod/prod pact)
+[![Pact Status](https://testdemo.pactflow.io/matrix/provider/pactflow-example-provider-dotnet/latest/prod/consumer/pactflow-example-consumer-dotnet/latest/prod/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest/prod) (prod/prod pact)
 
 This is an example of a dotnet core consumer using Pact to create a consumer driven contract, and sharing it via [Pactflow](https://pactflow.io).
 
