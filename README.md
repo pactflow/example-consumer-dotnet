@@ -23,7 +23,7 @@ The project uses a Makefile to simulate a very simple build pipeline with two st
 ## Dependencies
 
 * Docker
-* A [Pactflow](https://pactflow.io) account
+* A [Pactflow](https://pactflow.io) account 
 * A [read/write API Token](https://docs.pactflow.io/#configuring-your-api-token) from your Pactflow account
 * .NET 3.1.201 installed. You can install it from here: https://docs.microsoft.com/en-us/dotnet/core/install/macos
 
