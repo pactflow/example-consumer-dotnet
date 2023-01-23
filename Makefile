@@ -70,7 +70,7 @@ tag_as_prod:
 	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --tag prod
 
 ## =====================
-## Pactflow set up tasks
+## PactFlow set up tasks
 ## =====================
 
 # This should be called once before creating the webhook
