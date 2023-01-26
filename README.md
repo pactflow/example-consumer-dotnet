@@ -6,9 +6,9 @@
 
 [![Pact Status](https://dius.pactflow.io/matrix/provider/pactflow-example-provider-dotnet/latest/prod/consumer/pactflow-pactflow-example-consumer-dotnet/latest/prod/badge.svg?label=provider)](https://dius.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest/prod) (prod/prod pact)
 
-This is an example of a dotnet core consumer using Pact to create a consumer driven contract, and sharing it via [Pactflow](https://pactflow.io).
+This is an example of a dotnet core consumer using Pact to create a consumer driven contract, and sharing it via [PactFlow](https://pactflow.io).
 
-It is using a private tenant on Pactflow. The latest version of the Example Consumer/Example Provider pact is published [here](https://dius.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest).
+It is using a private tenant on PactFlow. The latest version of the Example Consumer/Example Provider pact is published [here](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-pactflow-example-consumer-dotnet/latest).
 
 The project uses a Makefile to simulate a very simple build pipeline with two stages - test and deploy.
 
@@ -23,13 +23,13 @@ The project uses a Makefile to simulate a very simple build pipeline with two st
 ## Dependencies
 
 * Docker
-* A [Pactflow](https://pactflow.io) account
-* A [read/write API Token](https://docs.pactflow.io/#configuring-your-api-token) from your Pactflow account
+* A [PactFlow](https://pactflow.io) account
+* A [read/write API Token](https://docs.pactflow.io/#configuring-your-api-token) from your PactFlow account
 * .NET 3.1.201 installed. You can install it from here: https://docs.microsoft.com/en-us/dotnet/core/install/macos
 
 ## Usage
 
-See the [Pactflow CI/CD Workshop](https://github.com/pactflow/ci-cd-workshop).
+See the [PactFlow CI/CD Workshop](https://github.com/pactflow/ci-cd-workshop).
 
 The below commands are designed for a Linux/OSX environment, please translate for use on Windows/PowerShell as necessary:
 
