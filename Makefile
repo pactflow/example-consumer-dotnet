@@ -24,6 +24,9 @@ restore:
 	dotnet restore src
 	dotnet restore tests
 
+run:
+	cd src && dotnet run
+
 ci: clean restore test publish_pacts can_i_deploy $(DEPLOY_TARGET)
 
 # Run the ci target from a developer machine with the environment variables
