@@ -32,7 +32,7 @@ namespace tests
             var Config = new PactConfig
             {
                 PactDir = Path.Join("..", "..", "..", "..", "pacts"),
-                Outputters = new[] { new XunitOutput(output) },
+                Outputters = new List<IOutput> { new XunitOutput(output), new ConsoleOutput() },
                 LogLevel = PactLogLevel.Debug
             };
 
