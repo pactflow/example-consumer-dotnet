@@ -39,7 +39,7 @@ fake_ci:
 	make ci
 
 publish_pacts:
-	@"${PACT_CLI}" publish ${PWD}/pacts --consumer-app-version ${GIT_COMMIT} --tag ${GIT_BRANCH}
+	@"${PACT_CLI}" publish ${PWD}/pacts --consumer-app-version ${GIT_COMMIT} --branch ${GIT_BRANCH}
 
 ## =====================
 ## Build/test tasks
@@ -53,7 +53,7 @@ test:
 ## Deploy tasks
 ## =====================
 
-deploy: deploy_app tag_as_prod
+deploy: deploy_app record_deployment
 
 no_deploy:
 	@echo "Not deploying as not on master branch"
@@ -62,15 +62,15 @@ can_i_deploy:
 	@"${PACT_CLI}" broker can-i-deploy \
 	  --pacticipant ${PACTICIPANT} \
 	  --version ${GIT_COMMIT} \
-	  --to prod \
+	  --to-environment production \
 	  --retry-while-unknown 0 \
 	  --retry-interval 10
 
 deploy_app:
 	@echo "Deploying to prod"
 
-tag_as_prod:
-	@"${PACT_CLI}" broker create-version-tag --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --tag prod
+record_deployment: .env
+	@"${PACT_CLI}" broker record-deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment production
 
 ## =====================
 ## PactFlow set up tasks
