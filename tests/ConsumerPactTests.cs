@@ -1,61 +1,69 @@
 using System;
+using System.IO;
 using Xunit;
-using PactNet.Mocks.MockHttpService;
-using PactNet.Mocks.MockHttpService.Models;
+using Xunit.Abstractions;
+using PactNet;
 using Consumer;
 using System.Collections.Generic;
-using PactNet.Matchers.Type;
+using System.Net.Http;
+using System.Net;
+using PactNet.Matchers;
 using FluentAssertions;
+using PactNet.Infrastructure.Outputters;
+using PactNet.Output.Xunit;
+using System.Threading.Tasks;
 
 namespace tests
 {
-    public class ConsumerPactTests : IClassFixture<ConsumerPactClassFixture>
+    public class ConsumerPactTests
     {
-        private IMockProviderService _mockProviderService;
-        private string _mockProviderServiceBaseUri;
+        private IPactBuilderV3 pact;
+        // private readonly int port = 9222;
 
-        public ConsumerPactTests(ConsumerPactClassFixture fixture)
+        private readonly List<object> products;
+
+        public ConsumerPactTests(ITestOutputHelper output)
         {
-            _mockProviderService = fixture.MockProviderService;
-            _mockProviderService.ClearInteractions(); //NOTE: Clears any previously registered interactions before the test is run
-            _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
+
+            products = new List<object>()
+            {
+                new { id = "27", name = "burger", type = "food" }
+            };
+
+            var Config = new PactConfig
+            {
+                PactDir = Path.Join("..", "..", "..", "..", "pacts"),
+                Outputters = new List<IOutput> { new XunitOutput(output), new ConsoleOutput() },
+                LogLevel = PactLogLevel.Debug
+            };
+
+            pact = Pact.V3("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions();
         }
 
         [Fact]
-        public async void RetrieveProducts()
+        public async Task RetrieveProducts()
         {
             // Arrange
-            _mockProviderService.Given("products exist")
-                                .UponReceiving("A request to get products")
-                                .With(new ProviderServiceRequest
-                                {
-                                    Method = HttpVerb.Get,
-                                    Path = "/products",
-                                })
-                                .WillRespondWith(new ProviderServiceResponse {
-                                    Status = 200,
-                                    Headers = new Dictionary<string, object>
-                                    {
-                                        { "Content-Type", "application/json; charset=utf-8" }
-                                    },
-                                    Body = new MinTypeMatcher(new
-                                    {
-                                        id = "27",
-                                        name = "burger",
-                                        type = "food"
-                                    }, 1)
-                                });
+            pact.UponReceiving("A request to get products")
+                        .Given("products exist")
+                        .WithRequest(HttpMethod.Get, "/products")
+                    .WillRespond()
+                    .WithStatus(HttpStatusCode.OK)
+                    .WithHeader("Content-Type", "application/json; charset=utf-8")
+                    .WithJsonBody(Match.MinType(products[0],1));
 
-            // Act
-            var consumer = new ProductClient();
-            List<Product> result = await consumer.GetProducts(_mockProviderServiceBaseUri);
-
-            // Assert
-            result.Should().NotBeNull();
-            result.Should().HaveCount(1);
-            result[0].id.Should().Equals("27");
-            result[0].name.Should().Equals("burger");
-            result[0].type.Should().Equals("food");
+            await pact.VerifyAsync(async ctx =>
+            {
+                // Act
+                var consumer = new ProductClient();
+                List<Product> result = await consumer.GetProducts(ctx.MockServerUri.ToString().TrimEnd('/'));
+                // Assert
+                result.Should().NotBeNull();
+                result.Should().HaveCount(1);
+                Assert.Equal("27",result[0].id);
+                Assert.Equal("burger",result[0].name);
+                Assert.Equal("food",result[0].type);
+            });
         }
     }
 }
