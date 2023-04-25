@@ -2,22 +2,19 @@
   "consumer": {
     "name": "pactflow-example-consumer-dotnet"
   },
-  "provider": {
-    "name": "pactflow-example-provider-dotnet"
-  },
   "interactions": [
     {
       "description": "A request to get products",
-      "providerState": "products exist",
+      "providerStates": [
+        {
+          "name": "products exist"
+        }
+      ],
       "request": {
-        "method": "get",
+        "method": "GET",
         "path": "/products"
       },
       "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
         "body": [
           {
             "id": "27",
@@ -25,20 +22,36 @@
             "type": "food"
           }
         ],
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
         "matchingRules": {
-          "$.body": {
-            "min": 1
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
           },
-          "$.body[*].*": {
-            "match": "type"
-          }
-        }
+          "header": {}
+        },
+        "status": 200
       }
     }
   ],
   "metadata": {
+    "pactRust": {
+      "ffi": "0.4.0",
+      "models": "1.0.4"
+    },
     "pactSpecification": {
-      "version": "2.0.0"
+      "version": "3.0.0"
     }
+  },
+  "provider": {
+    "name": "pactflow-example-provider-dotnet"
   }
 }
