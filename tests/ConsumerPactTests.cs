@@ -11,13 +11,14 @@ using PactNet.Matchers;
 using FluentAssertions;
 using PactNet.Infrastructure.Outputters;
 using PactNet.Output.Xunit;
+using System.Threading.Tasks;
 
 namespace tests
 {
     public class ConsumerPactTests
     {
         private IPactBuilderV3 pact;
-        private readonly int port = 9222;
+        // private readonly int port = 9222;
 
         private readonly List<object> products;
 
@@ -36,11 +37,11 @@ namespace tests
                 LogLevel = PactLogLevel.Debug
             };
 
-            pact = Pact.V3("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions(port);
+            pact = Pact.V3("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions();
         }
 
         [Fact]
-        public async void RetrieveProducts()
+        public async Task RetrieveProducts()
         {
             // Arrange
             pact.UponReceiving("A request to get products")
@@ -55,7 +56,7 @@ namespace tests
             {
                 // Act
                 var consumer = new ProductClient();
-                List<Product> result = await consumer.GetProducts($"http://localhost:{port}");
+                List<Product> result = await consumer.GetProducts(ctx.MockServerUri.ToString().TrimEnd('/'));
                 // Assert
                 result.Should().NotBeNull();
                 result.Should().HaveCount(1);
