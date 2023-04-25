@@ -31,7 +31,8 @@
               "combine": "AND",
               "matchers": [
                 {
-                  "match": "type"
+                  "match": "type",
+                  "min": 1
                 }
               ]
             }
