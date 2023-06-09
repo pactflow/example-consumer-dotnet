@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\pacts",
+    "\\src",
+    "\\tests"
+  ],
+  "SelectedNode": "\\src\\ConsumerApiClient.cs",
+  "PreviewInSolutionExplorer": false
+}
