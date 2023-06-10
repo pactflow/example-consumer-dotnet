@@ -82,9 +82,9 @@ namespace tests
         public async Task RetrieveProductsById()
         {
             // Arrange
-            pact.UponReceiving("A request to product by Id")
-                        .Given("product id 27 exist")
-                        .WithRequest(HttpMethod.Get, "/product/27")
+            pact.UponReceiving("A request to product Id which does not exist")
+                        .Given("product id 10 does not exist")
+                        .WithRequest(HttpMethod.Get, "/product/10")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
                     .WithHeader("Content-Type", "application/json; charset=utf-8")
@@ -95,7 +95,7 @@ namespace tests
                 // Act
                 var consumer = new ProductClient();
                
-                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'), 27);
+                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'), 10);
                 // Assert
                 result.Should().NotBeNull();
                 // result.Should().HaveCount(1);
