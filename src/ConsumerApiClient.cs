@@ -35,7 +35,7 @@ namespace Consumer
 
             var response = await client.GetAsync(baseUrl + "/product/"+id);
            // response.EnsureSuccessStatusCode();
-            
+           
             var resp =await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<Product>>(resp);
