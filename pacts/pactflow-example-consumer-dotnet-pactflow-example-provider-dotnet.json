@@ -7,12 +7,12 @@
       "description": "A request to product by Id",
       "providerStates": [
         {
-          "name": "product id 2 exist"
+          "name": "product id 27 exist"
         }
       ],
       "request": {
         "method": "GET",
-        "path": "/product/2"
+        "path": "/product/27"
       },
       "response": {
         "body": [
