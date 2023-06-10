@@ -67,7 +67,6 @@ namespace tests
                 List<Product> result = await consumer.GetProducts(ctx.MockServerUri.ToString().TrimEnd('/'));
                 // Assert
 
-                Console.WriteLine(result);
 
                 result.Should().NotBeNull();
                 result.Should().HaveCount(1);
@@ -77,14 +76,13 @@ namespace tests
             });
         }
 
-
         [Fact]
         public async Task RetrieveProductsById()
         {
             // Arrange
-            pact.UponReceiving("A request to product by Id")
-                        .Given("product id 27 exists")
-                        .WithRequest(HttpMethod.Get, "/product/10")
+            pact.UponReceiving("A request to get products By Id")
+                        .Given("products id exist")
+                        .WithRequest(HttpMethod.Get, "/products")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
                     .WithHeader("Content-Type", "application/json; charset=utf-8")
@@ -94,16 +92,19 @@ namespace tests
             {
                 // Act
                 var consumer = new ProductClient();
-               
-                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'), 27);
+                List<Product> result = await consumer.GetProducts(ctx.MockServerUri.ToString().TrimEnd('/'));
                 // Assert
+
+
                 result.Should().NotBeNull();
-                // result.Should().HaveCount(1);
-                
+                result.Should().HaveCount(1);
                 Assert.Equal("27", result[0].id);
                 Assert.Equal("burger", result[0].name);
                 Assert.Equal("food", result[0].type);
             });
         }
+
+
+
     }
 }

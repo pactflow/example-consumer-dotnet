@@ -4,21 +4,21 @@
   },
   "interactions": [
     {
-      "description": "A request to product by Id",
+      "description": "A request to get products",
       "providerStates": [
         {
-          "name": "product id 27 exist"
+          "name": "products exist"
         }
       ],
       "request": {
         "method": "GET",
-        "path": "/product/2"
+        "path": "/products"
       },
       "response": {
         "body": [
           {
-            "id": "2",
-            "name": "sanwich",
+            "id": "27",
+            "name": "burger",
             "type": "food"
           }
         ],
@@ -43,10 +43,10 @@
       }
     },
     {
-      "description": "A request to get products",
+      "description": "A request to get products By Id",
       "providerStates": [
         {
-          "name": "products exist"
+          "name": "products id exist"
         }
       ],
       "request": {
