@@ -85,7 +85,7 @@ namespace tests
                         .WithRequest(HttpMethod.Get, "/product/10")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.NotFound);
-
+ 
             await pact.VerifyAsync(async ctx =>
             {
                 // Act
