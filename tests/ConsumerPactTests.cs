@@ -84,23 +84,15 @@ namespace tests
                         .Given("products id exist")
                         .WithRequest(HttpMethod.Get, "/product/10")
                     .WillRespond()
-                    .WithStatus(HttpStatusCode.NotFound)
-                    .WithHeader("Content-Type", "application/json; charset=utf-8");
-                    //.WithJsonBody(Match.MinType(products[0], 1));
+                    .WithStatus(HttpStatusCode.NotFound);
 
             await pact.VerifyAsync(async ctx =>
             {
                 // Act
                 var consumer = new ProductClient();
                 List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'),10);
-                // Assert
+                
 
-
-                //result.Should().NotBeNull();
-                //result.Should().HaveCount(1);
-                //Assert.Equal("27", result[0].id);
-                //Assert.Equal("burger", result[0].name);
-                //Assert.Equal("food", result[0].type);
             });
         }
 
