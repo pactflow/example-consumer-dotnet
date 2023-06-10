@@ -46,7 +46,7 @@
       "description": "A request to get products By Id does not exist",
       "providerStates": [
         {
-          "name": "products id exist"
+          "name": "products id does not exist"
         }
       ],
       "request": {
