@@ -83,8 +83,8 @@ namespace tests
         {
             // Arrange
             pact.UponReceiving("A request to product by Id")
-                        .Given("product id 2 exist")
-                        .WithRequest(HttpMethod.Get, "/product/2")
+                        .Given("product id 27 exist")
+                        .WithRequest(HttpMethod.Get, "/product/27")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
                     .WithHeader("Content-Type", "application/json; charset=utf-8")
@@ -95,7 +95,7 @@ namespace tests
                 // Act
                 var consumer = new ProductClient();
                
-                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'), 2);
+                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'), 27);
                 // Assert
                 result.Should().NotBeNull();
                 // result.Should().HaveCount(1);
