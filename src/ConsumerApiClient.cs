@@ -34,7 +34,7 @@ namespace Consumer
             using var client = httpClient == null ? new HttpClient() : httpClient;
 
             var response = await client.GetAsync(baseUrl + "/product/"+id);
-            response.EnsureSuccessStatusCode();
+           // response.EnsureSuccessStatusCode();
             
             var resp =await response.Content.ReadAsStringAsync();
 
