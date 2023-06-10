@@ -12,12 +12,12 @@
       ],
       "request": {
         "method": "GET",
-        "path": "/product/27"
+        "path": "/product/2"
       },
       "response": {
         "body": [
           {
-            "id": "27",
+            "id": "2",
             "name": "burger",
             "type": "food"
           }
