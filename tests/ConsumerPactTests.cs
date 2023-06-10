@@ -83,7 +83,7 @@ namespace tests
         {
             // Arrange
             pact.UponReceiving("A request to product by Id")
-                        .Given("product id 27 exist")
+                        .Given("product id 2 exist")
                         .WithRequest(HttpMethod.Get, "/product/2")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
