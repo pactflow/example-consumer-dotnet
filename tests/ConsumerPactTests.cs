@@ -92,7 +92,6 @@ namespace tests
                 var consumer = new ProductClient();
                 List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'),10);
                 
-
             });
         }
 
