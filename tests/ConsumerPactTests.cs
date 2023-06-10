@@ -80,8 +80,8 @@ namespace tests
         public async Task RetrieveProductsById()
         {
             // Arrange
-            pact.UponReceiving("A request to get products By Id does not exist")
-                        .Given("products id exist")
+            pact.UponReceiving("A request to retrieve a product id")
+                        .Given("products id does not exist")
                         .WithRequest(HttpMethod.Get, "/product/10")
                     .WillRespond()
                     .WithStatus(HttpStatusCode.NotFound);
