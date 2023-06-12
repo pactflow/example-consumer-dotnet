@@ -29,16 +29,21 @@ namespace Consumer
             return JsonConvert.DeserializeObject<List<Product>>(resp);
         }
 
-        public async Task<System.Collections.Generic.List<Product>> GetProductById(string baseUrl,int id, HttpClient? httpClient = null)
+        public async Task<bool> GetProductById(string baseUrl,int id, HttpClient? httpClient = null)
         {
             using var client = httpClient == null ? new HttpClient() : httpClient;
 
             var response = await client.GetAsync(baseUrl + "/product/"+id);
            // response.EnsureSuccessStatusCode();
            
-            var resp =await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<Product>>(resp);
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

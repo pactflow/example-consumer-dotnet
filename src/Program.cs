@@ -16,9 +16,10 @@ namespace Consumer
             List<Product> result = consumer.GetProducts(baseUri).GetAwaiter().GetResult();
             Console.WriteLine(result);
 
-            int id = 2;
-            List<Product> product = consumer.GetProductById(baseUri,id).GetAwaiter().GetResult();
-            Console.WriteLine(product);
+            int id = 10;
+            bool notFound = consumer.GetProductById(baseUri,id).GetAwaiter().GetResult();
+            Console.WriteLine(notFound);
+
         }
 
         static private void WriteoutArgsUsed(string datetimeArg, string baseUriArg)
