@@ -90,7 +90,7 @@ namespace tests
             {
                 // Act
                 var consumer = new ProductClient();
-                List<Product> result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'),10);
+                bool result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'),10);
                 
             });
         }
