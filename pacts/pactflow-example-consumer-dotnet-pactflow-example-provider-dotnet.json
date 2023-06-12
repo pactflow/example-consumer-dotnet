@@ -41,6 +41,21 @@
         },
         "status": 200
       }
+    },
+    {
+      "description": "A request to retrieve a product id",
+      "providerStates": [
+        {
+          "name": "products id does not exist"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/product/10"
+      },
+      "response": {
+        "status": 404
+      }
     }
   ],
   "metadata": {

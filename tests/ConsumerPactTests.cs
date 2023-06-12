@@ -12,6 +12,10 @@ using FluentAssertions;
 using PactNet.Infrastructure.Outputters;
 using PactNet.Output.Xunit;
 using System.Threading.Tasks;
+using System.IO.Pipes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 
 namespace tests
 {
@@ -19,8 +23,8 @@ namespace tests
     {
         private IPactBuilderV3 pact;
         // private readonly int port = 9222;
-
         private readonly List<object> products;
+       
 
         public ConsumerPactTests(ITestOutputHelper output)
         {
@@ -33,11 +37,15 @@ namespace tests
             var Config = new PactConfig
             {
                 PactDir = Path.Join("..", "..", "..", "..", "pacts"),
+                
                 Outputters = new List<IOutput> { new XunitOutput(output), new ConsoleOutput() },
-                LogLevel = PactLogLevel.Debug
+                LogLevel = PactLogLevel.Debug,
             };
 
             pact = Pact.V3("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions();
+            
+          
+
         }
 
         [Fact]
@@ -58,6 +66,8 @@ namespace tests
                 var consumer = new ProductClient();
                 List<Product> result = await consumer.GetProducts(ctx.MockServerUri.ToString().TrimEnd('/'));
                 // Assert
+
+
                 result.Should().NotBeNull();
                 result.Should().HaveCount(1);
                 Assert.Equal("27",result[0].id);
@@ -65,5 +75,27 @@ namespace tests
                 Assert.Equal("food",result[0].type);
             });
         }
+
+        [Fact]
+        public async Task RetrieveProductsById()
+        {
+            // Arrange
+            pact.UponReceiving("A request to retrieve a product id")
+                        .Given("products id does not exist")
+                        .WithRequest(HttpMethod.Get, "/product/10")
+                    .WillRespond()
+                    .WithStatus(HttpStatusCode.NotFound);
+ 
+            await pact.VerifyAsync(async ctx =>
+            {
+                // Act
+                var consumer = new ProductClient();
+                bool result = await consumer.GetProductById(ctx.MockServerUri.ToString().TrimEnd('/'),10);
+                
+            });
+        }
+
+
+
     }
 }

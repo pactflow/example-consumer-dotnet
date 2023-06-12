@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -26,6 +27,23 @@ namespace Consumer
             var resp = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<Product>>(resp);
+        }
+
+        public async Task<bool> GetProductById(string baseUrl,int id, HttpClient? httpClient = null)
+        {
+            using var client = httpClient == null ? new HttpClient() : httpClient;
+
+            var response = await client.GetAsync(baseUrl + "/product/"+id);
+           // response.EnsureSuccessStatusCode();
+           
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
