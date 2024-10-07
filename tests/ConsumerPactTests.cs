@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using Xunit;
 using Xunit.Abstractions;
@@ -17,7 +16,7 @@ namespace tests
 {
     public class ConsumerPactTests
     {
-        private IPactBuilderV3 pact;
+        private IPactBuilderV4 pact;
         // private readonly int port = 9222;
 
         private readonly List<object> products;
@@ -37,7 +36,7 @@ namespace tests
                 LogLevel = PactLogLevel.Debug
             };
 
-            pact = Pact.V3("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions();
+            pact = Pact.V4("pactflow-example-consumer-dotnet", "pactflow-example-provider-dotnet", Config).WithHttpInteractions();
         }
 
         [Fact]
