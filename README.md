@@ -2,9 +2,9 @@
 
 [![Build](https://github.com/pactflow/example-consumer-dotnet/actions/workflows/build.yml/badge.svg)](https://github.com/pactflow/example-consumer-dotnet/actions/workflows/build.yml)
 
-[![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest) (latest pact)
+![Can I Deploy](https://testdemo.pactflow.io/pacticipants/pactflow-example-consumer-dotnet/branches/master/latest-version/can-i-deploy/to-environment/production/badge)
 
-[![Pact Status](https://testdemo.pactflow.io/matrix/provider/pactflow-example-provider-dotnet/latest/prod/consumer/pactflow-example-consumer-dotnet/latest/prod/badge.svg?label=provider)](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest/prod) (prod/prod pact)
+![Pact Status](https://testdemo.pactflow.io/pacts/provider/pactflow-example-provider-dotnet/consumer/pactflow-example-consumer-dotnet/latest/badge?label=provider) (latest pact)
 
 This is an example of a dotnet core consumer using Pact to create a consumer driven contract, and sharing it via [PactFlow](https://pactflow.io).
 
@@ -25,7 +25,7 @@ The project uses a Makefile to simulate a very simple build pipeline with two st
 * Docker
 * A [PactFlow](https://pactflow.io) account 
 * A [read/write API Token](https://docs.pactflow.io/#configuring-your-api-token) from your PactFlow account
-* .NET 6.x installed. You can install it from here: https://docs.microsoft.com/en-us/dotnet/core/install/macos
+* .NET 8.x installed. You can install it from here: https://docs.microsoft.com/en-us/dotnet/core/install
 
 ## Usage
 
