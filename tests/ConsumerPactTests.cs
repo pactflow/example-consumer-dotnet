@@ -16,9 +16,7 @@ namespace tests
 {
     public class ConsumerPactTests
     {
-        private IPactBuilderV4 pact;
-        // private readonly int port = 9222;
-
+        private readonly IPactBuilderV4 pact;
         private readonly List<object> products;
 
         public ConsumerPactTests(ITestOutputHelper output)
