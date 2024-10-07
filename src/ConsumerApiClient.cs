@@ -1,16 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Consumer
 {
     public struct Product
     {
-        public string id;
-        public string type;
-        public string name;
+        public string id { get; set; }
+        public string type { get; set; }
+        public string name { get; set; }
     }
 
     public class ProductClient
@@ -25,7 +24,7 @@ namespace Consumer
 
             var resp = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<List<Product>>(resp);
+            return JsonSerializer.Deserialize<List<Product>>(resp);
         }
     }
 }
