@@ -27,9 +27,9 @@ jobs:
             'pactflow-provider-dotnet'
           ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: test for ${{ matrix.pact_provider }}
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: docker pull pactfoundation/pact-cli:latest
       - name: Can I deploy?
         run: GIT_BRANCH=${GITHUB_REF:11} make can_i_deploy
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: can-i-deploy
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: docker pull pactfoundation/pact-cli:latest
       - name: Deploy
         run: GIT_BRANCH=${GITHUB_REF:11} make deploy
